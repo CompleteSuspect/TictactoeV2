@@ -4,14 +4,16 @@ import random
 def set_players():
     
     players = []
-    pieces = ['x', 'o']
+    pieces = ['X', 'O']
     random.shuffle(pieces)
     
     #set for comparison checks and ask atlas about .casefold()
     while len(players) < 2:
         new_player = input(f"Player {len(players)+1}, please enter your name: ").strip()
+        
         if new_player and new_player != ' ' and new_player not in players:
             players.append(new_player)
+            
         else:
             print("Duplicate or invalid name!")
             
@@ -28,16 +30,14 @@ def get_pos_map(n):
             for col in range(n)
             }
 
-def player_move(grid, token, player, pos):
-    n = len(grid)
-    
-    print(f"{player}'s turn ({token.upper()}):")
+def player_move(grid, token, player, pos_map): 
+    print(f"{player}'s turn ({token}):")
     
     while True:
         move = input("Please enter your move: ").strip().lower()
         
-        if move in pos:
-            row, col = pos[move]
+        if move in pos_map:
+            row, col = pos_map[move]
             
             if grid[row][col] == ' ':
                 grid[row][col] = token
